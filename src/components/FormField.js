@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-const FormField = ({ label, name, hideContents, changeHandler }) => {
+const FormField = ({ label, name, value, type, changeHandler }) => {
     const [isActive, setIsActive] = useState(false);
     const inputRef = useRef(null)
 
@@ -13,13 +13,14 @@ const FormField = ({ label, name, hideContents, changeHandler }) => {
     return (
         <div className={`form-field ${isActive ? 'active' : ''}`} onFocus={() => setIsActive(true)} onBlur={handleBlur}>
             <label htmlFor={name}>{label}</label>
-            <input type={hideContents ? 'password' : 'text'} id={name} name={name} onChange={changeHandler} ref={inputRef} />
+            <input type={type} id={name} name={name} value={value} onChange={changeHandler} ref={inputRef} />
         </div>
     );
 }
 
 FormField.defaultProps = {
-    hideContents: false
+    type: 'text',
+    value: ''
 }
 
 export default FormField;

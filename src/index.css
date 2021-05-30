@@ -6,7 +6,7 @@
     --homina-black: #1b1e22;
     --homina-yellow: #ffce1f;
     --homina-white: #f1f6f8;
-    --homina-grey: #f1f6f881;
+    --homina-grey: #878b8e;
     --button-hover: #fbda60;
     --button-focus: #bb9920;
 }
@@ -54,6 +54,11 @@ body {
 .primary-button:focus {
     background-color: var(--button-focus);
     outline: none;
+}
+
+.disabled, .disabled:hover, .disabled:focus {
+    background-color: var(--homina-white);
+    color: var(--homina-grey);
 }
 
 #root {
