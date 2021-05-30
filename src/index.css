@@ -105,21 +105,10 @@ body {
     border-bottom: 1px solid var(--homina-white);
 }
 
-.form-field:focus-within {
-    border-bottom-color: var(--homina-yellow);
-}
-
 .form-field label {
     z-index: 1;
     position: absolute;
     bottom: 10px;
-}
-
-.form-field:focus-within label {
-    font-size: 12px;
-    top: 0;
-    bottom: 0;
-    color: var(--homina-yellow);
 }
 
 .form-field input {
@@ -132,7 +121,18 @@ body {
     font-size: 17px;
 }
 
-.form-field input:focus {
+.active {
+    border-bottom-color: var(--homina-yellow);
+}
+
+.active label {
+    font-size: 12px;
+    top: 0;
+    bottom: 0;
+    color: var(--homina-yellow);
+}
+
+.active input:focus {
     outline: none;
 }
 
