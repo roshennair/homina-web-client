@@ -56,7 +56,12 @@ body {
     outline: none;
 }
 
-.disabled, .disabled:hover, .disabled:focus {
+button:disabled,
+button:disabled:hover,
+button:disabled:focus,
+input[type=submit]:disabled,
+input[type=submit]:disabled:hover,
+input[type=submit]:disabled:focus {
     background-color: var(--homina-white);
     color: var(--homina-grey);
 }
