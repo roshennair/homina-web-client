@@ -1,58 +1,68 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../contexts/authContext';
-import FormField from '../components/FormField';
+import Logo from '../components/Logo';
+import ErrorMessage from '../components/ErrorMessage';
 import { Link, useHistory } from 'react-router-dom';
 
 const SignUp = () => {
-	const nameRef = useRef();
-	const emailRef = useRef();
-	const usernameRef = useRef();
-	const passwordRef = useRef();
+	const [formValues, setFormValues] = useState({
+		name: '',
+		email: '',
+		username: '',
+		password: ''
+	});
+	const [error, setError] = useState('');
 	const { signUp } = useAuth();
 	const history = useHistory();
 
-	const handleFormSubmit = async (event) => {
+	// Update state when form values change
+	const handleChange = e => {
+		const field = e.target.name;
+		const value = e.target.value;
+		setFormValues({ ...formValues, [field]: value });
+	};
+
+	// Sign up user
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 
 		try {
-			await signUp(
-				nameRef.current.value,
-				emailRef.current.value,
-				usernameRef.current.value,
-				passwordRef.current.value
-			);
+			await signUp(formValues);
 			history.push('/');
 		}
 		catch (error) {
-			console.log(error);
+			setError(error.message);
 		}
 	}
 
 	return (
 		<div className="form-container">
-			<div className="form-header">
-				<svg
-					className="form-logo"
-					xmlns="http://www.w3.org/2000/svg"
-					width="100"
-					height="100"
-					viewBox="0 0 630 630">
-					<path d="M104.89,0h-.74A105,105,0,1,0,210,105v-1.14A105,105,0,0,0,104.89,0ZM210,105v.57A105,105,0,0,0,420,105v-1.14A105,105,0,0,0,210,105Zm210,0v.57A105,105,0,0,0,630,105v-1.14A105,105,0,0,0,420,105ZM104.89,210h-.74A105,105,0,1,0,210,315v-1.14A105,105,0,0,0,104.89,210ZM210,315v.57A105,105,0,0,0,420,315v-1.14A105,105,0,0,0,210,315Zm210,0v.57A105,105,0,0,0,630,315v-1.14A105,105,0,0,0,420,315ZM104.89,420h-.74A105,105,0,1,0,210,525v-1.14A105,105,0,0,0,104.89,420ZM210,525v.57A105,105,0,0,0,420,525v-1.14A105,105,0,0,0,210,525Zm210,0v.57A105,105,0,0,0,630,525v-1.14A105,105,0,0,0,420,525Z" transform="translate(0 0)" fill="#ffce1f" />
-				</svg>
-				<p className="form-title">Sign Up</p>
+			<div className="form-head">
+				<Logo />
+				<h1>Sign Up</h1>
 			</div>
-			<form className="form" method="post" onSubmit={handleFormSubmit}>
-				<FormField ref={nameRef} label="Name" name="name" />
-				<FormField ref={emailRef} label="Email address" name="email" type="email" />
-				<FormField ref={usernameRef} label="Username" name="username" />
-				<FormField ref={passwordRef} label="Password" name="password" type="password" />
+			{error && <ErrorMessage error={error} hideError={() => setError('')} />}
+			<div className="form-body">
+				<form className="form" method="post" onSubmit={handleSubmit}>
+					<label htmlFor="name">Name</label>
+					<input type="text" name="name" id="name" required value={formValues.name} onChange={handleChange} />
 
-				<div className="form-links">
-					<Link className="link" to="/login">Login instead?</Link>
-					<input className="primary-button" type="submit" value="Sign Up" />
-				</div>
-			</form>
-		</div>
+					<label htmlFor="email">Email address</label>
+					<input type="email" name="email" id="email" required value={formValues.email} onChange={handleChange} />
+
+					<label htmlFor="username">Username</label>
+					<input type="text" name="username" id="username" required value={formValues.username} onChange={handleChange} />
+
+					<label htmlFor="password">Password</label>
+					<input type="password" name="password" id="password" required value={formValues.password} onChange={handleChange} />
+
+					<input className="primary form-submit" type="submit" value="Sign Up" />
+				</form>
+			</div >
+			<div className="form-foot">
+				<span>Already have a Homina account? <Link to="/login">Login</Link>.</span>
+			</div>
+		</div >
 	);
 }
 
