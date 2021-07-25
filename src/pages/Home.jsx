@@ -16,7 +16,9 @@ const Home = () => {
 			) : (
 				<>
 					<p>No current user</p>
-					<Link className="link " to="/signup">Sign Up</Link>
+					<Link to="/signup">Sign Up</Link>
+					<br />
+					<Link to="/login">Login</Link>
 				</>
 			)}
 		</div>
