@@ -3,15 +3,17 @@ import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import { AuthProvider } from './contexts/authContext';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 
 const App = () => {
 	return (
 		<AuthProvider>
 			<Router>
 				<Switch>
-					<Route exact path='/' component={Home} />
-					<Route path='/signup' component={SignUp} />
-					<Route path='/login' component={Login} />
+					<PrivateRoute exact path='/' component={Home} />
+					<PublicRoute path='/signup' component={SignUp} />
+					<PublicRoute path='/login' component={Login} />
 				</Switch>
 			</Router>
 		</AuthProvider>
