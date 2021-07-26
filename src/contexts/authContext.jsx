@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
 	const signUp = async (signUpData) => {
 		const response = await fetch(`${REACT_APP_SERVER_ADDRESS}/signup`, {
 			method: 'POST',
+			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }) => {
 	const login = async (loginCreds) => {
 		const response = await fetch(`${REACT_APP_SERVER_ADDRESS}/login`, {
 			method: 'POST',
+			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -50,6 +52,7 @@ export const AuthProvider = ({ children }) => {
 	const logout = async () => {
 		const response = await fetch(`${REACT_APP_SERVER_ADDRESS}/logout`, {
 			method: 'POST',
+			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json'
 			}
