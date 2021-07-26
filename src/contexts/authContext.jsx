@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 
 const {
-	SERVER_ADDRESS = 'http://localhost:5000',
+	REACT_APP_SERVER_ADDRESS = 'http://localhost:5000',
 } = process.env;
 
 const AuthContext = React.createContext();
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState(null);
 
 	const signUp = async (signUpData) => {
-		const response = await fetch(`${SERVER_ADDRESS}/signup`, {
+		const response = await fetch(`${REACT_APP_SERVER_ADDRESS}/signup`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	const login = async (loginCreds) => {
-		const response = await fetch(`${SERVER_ADDRESS}/login`, {
+		const response = await fetch(`${REACT_APP_SERVER_ADDRESS}/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	const logout = async () => {
-		const response = await fetch(`${SERVER_ADDRESS}/logout`, {
+		const response = await fetch(`${REACT_APP_SERVER_ADDRESS}/logout`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
