@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 const {
 	REACT_APP_SERVER_ADDRESS = 'http://localhost:5000',
@@ -9,7 +9,11 @@ const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-	const [currentUser, setCurrentUser] = useState(null);
+	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('currentUser')) || null);
+
+	useEffect(() => {
+		localStorage.setItem('currentUser', JSON.stringify(currentUser));
+	}, [currentUser]);
 
 	const signUp = async (signUpData) => {
 		const response = await fetch(`${REACT_APP_SERVER_ADDRESS}/signup`, {
@@ -60,6 +64,7 @@ export const AuthProvider = ({ children }) => {
 
 		if (response.ok) {
 			setCurrentUser(null);
+			localStorage.removeItem('currentUser');
 		} else {
 			const error = await response.json();
 			throw error;
